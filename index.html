@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Bridgeland Rotation Finder</title>
+<style>
+:root {
+  --navy:#17365D;
+  --blue:#2F5597;
+  --bg:#F5F7FA;
+  --card:#FFFFFF;
+  --border:#D8DEE6;
+  --muted:#667085;
+  --day:#D9EAF7;
+  --evening:#FCE4C8;
+  --night:#D8D0EA;
+  --off:#F1F3F5;
+  --green:#DCEAD5;
+}
+* { box-sizing:border-box; }
+body {
+  margin:0;
+  font-family: Inter, Arial, sans-serif;
+  background:var(--bg);
+  color:#1F2937;
+}
+.hero {
+  background:linear-gradient(135deg, var(--navy), var(--blue));
+  color:white;
+  padding:28px 18px 24px;
+}
+.wrap {
+  width:min(1120px, calc(100% - 28px));
+  margin:0 auto;
+}
+.hero h1 {
+  margin:0 0 6px;
+  font-size:clamp(28px, 5vw, 46px);
+  line-height:1.05;
+}
+.hero p {
+  margin:0;
+  opacity:.92;
+  max-width:720px;
+}
+.panel {
+  margin-top:-14px;
+  background:white;
+  border:1px solid var(--border);
+  border-radius:18px;
+  padding:18px;
+  box-shadow:0 10px 30px rgba(23,54,93,.10);
+}
+.filters {
+  display:grid;
+  grid-template-columns:repeat(4, 1fr);
+  gap:12px;
+}
+label {
+  display:block;
+  font-size:12px;
+  font-weight:700;
+  color:#475467;
+  margin-bottom:6px;
+}
+select {
+  width:100%;
+  padding:12px 13px;
+  border:1px solid #C9D2DC;
+  border-radius:10px;
+  background:white;
+  font-size:15px;
+}
+.actions {
+  margin-top:14px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  flex-wrap:wrap;
+}
+.count {
+  font-weight:800;
+  color:var(--navy);
+}
+button {
+  border:none;
+  background:#E9EEF5;
+  color:var(--navy);
+  border-radius:10px;
+  padding:10px 14px;
+  font-weight:700;
+  cursor:pointer;
+}
+.results {
+  padding:24px 0 44px;
+}
+.empty {
+  background:white;
+  border:1px dashed #B8C2CC;
+  border-radius:16px;
+  padding:30px;
+  text-align:center;
+  color:var(--muted);
+}
+.card {
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:16px;
+  margin-bottom:18px;
+  overflow:hidden;
+  box-shadow:0 4px 14px rgba(0,0,0,.05);
+}
+.cardhead {
+  background:var(--blue);
+  color:white;
+  padding:14px 16px;
+  display:flex;
+  justify-content:space-between;
+  gap:10px;
+  flex-wrap:wrap;
+}
+.cardhead h3 {
+  margin:0;
+  font-size:20px;
+}
+.meta {
+  font-size:13px;
+  opacity:.95;
+}
+.tablewrap { overflow-x:auto; }
+table {
+  border-collapse:collapse;
+  width:100%;
+  min-width:760px;
+}
+th, td {
+  border:1px solid #D6DDE5;
+  text-align:center;
+  padding:10px 8px;
+  font-size:13px;
+}
+th {
+  background:#E8EEF7;
+  color:#344054;
+}
+.week {
+  background:#EEF2F7;
+  font-weight:800;
+  white-space:nowrap;
+}
+.shift-D,.shift-DF { background:var(--day); }
+.shift-E,.shift-EF { background:var(--evening); }
+.shift-N { background:var(--night); }
+.shift-OFF { background:var(--off); color:#667085; }
+.shift-tilde,.shift-caret { background:var(--green); }
+.legend {
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+  margin-top:10px;
+  font-size:12px;
+  color:#475467;
+}
+.legend span {
+  display:inline-flex;
+  gap:6px;
+  align-items:center;
+}
+.dot {
+  width:13px;height:13px;border-radius:3px;border:1px solid #C6CCD3;
+}
+.note {
+  padding:11px 16px 14px;
+  color:#667085;
+  font-size:12px;
+}
+@media (max-width:820px) {
+  .filters { grid-template-columns:1fr 1fr; }
+}
+@media (max-width:520px) {
+  .wrap { width:min(100% - 18px, 1120px); }
+  .filters { grid-template-columns:1fr; }
+  .panel { padding:14px; border-radius:14px; }
+  .cardhead h3 { font-size:18px; }
+}
+</style>
+</head>
+<body>
+<section class="hero">
+  <div class="wrap">
+    <h1>Bridgeland Rotation Finder</h1>
+    <p>Choose your role, floor, FTE and preferred shift combination to see matching rotations.</p>
+  </div>
+</section>
+
+<main class="wrap">
+  <section class="panel">
+    <div class="filters">
+      <div>
+        <label for="position">Position *</label>
+        <select id="position">
+          <option value="">Select position</option>
+          <option value="HCA">HCA</option>
+        </select>
+      </div>
+      <div>
+        <label for="floor">Floor *</label>
+        <select id="floor">
+          <option value="">Select floor</option>
+          <option value="Level 2">Level 2</option>
+        </select>
+      </div>
+      <div>
+        <label for="fte">FTE *</label>
+        <select id="fte">
+          <option value="">Select FTE</option>
+          <option value="1">1.0</option>
+          <option value="0.8">0.8</option>
+          <option value="0.6">0.6</option>
+        </select>
+      </div>
+      <div>
+        <label for="shift">Shift Combination *</label>
+        <select id="shift">
+          <option value="">Select shift</option>
+        </select>
+      </div>
+    </div>
+    <div class="actions">
+      <div id="count" class="count">Choose all 4 filters to view rotations.</div>
+      <button id="reset" type="button">Reset filters</button>
+    </div>
+    <div class="legend">
+      <span><i class="dot" style="background:var(--day)"></i> Day</span>
+      <span><i class="dot" style="background:var(--evening)"></i> Evening</span>
+      <span><i class="dot" style="background:var(--night)"></i> Night</span>
+      <span><i class="dot" style="background:var(--off)"></i> Off</span>
+    </div>
+  </section>
+
+  <section id="results" class="results">
+    <div class="empty">Select the required options above to view matching rotations.</div>
+  </section>
+</main>
+
+<script>
+const rotations = [{"position": "HCA", "floor": "Level 2", "fte": 1.0, "rotation": 1, "hours": 77.5, "lineType": "D / E", "shiftCombo": "D/E", "weeks": [["D", "D", "E", "E", "E", "E", "E"], ["", "", "E", "E", "E", "E", "E"], ["", "", "E", "E", "E", "E", "E"], ["", "", "D", "D", "D", "~", ""], ["D", "D", "D", "D", "D", "~", ""]]}, {"position": "HCA", "floor": "Level 2", "fte": 1.0, "rotation": 2, "hours": 77.5, "lineType": "D / E", "shiftCombo": "D/E", "weeks": [["", "", "D", "D", "D", "~", ""], ["D", "D", "D", "D", "D", "~", ""], ["D", "D", "E", "E", "E", "E", "E"], ["", "", "E", "E", "E", "E", "E"], ["", "", "E", "E", "E", "E", "E"]]}, {"position": "HCA", "floor": "Level 2", "fte": 0.8, "rotation": 3, "hours": 62.0, "lineType": "D / N", "shiftCombo": "D/N", "weeks": [["N", "N", "", "", "N", "N", ""], ["", "", "", "N", "N", "N", "N"], ["", "", "N", "N", "", "~", ""], ["D", "D", "D", "D", "D", "~", ""], ["D", "D", "", "", "N", "N", "N"]]}, {"position": "HCA", "floor": "Level 2", "fte": 0.8, "rotation": 4, "hours": 62.0, "lineType": "D / N", "shiftCombo": "D/N", "weeks": [["D", "D", "N", "N", "", "~", ""], ["D", "D", "", "", "D", "D", "D"], ["N", "N", "", "", "N", "N", ""], ["", "", "N", "N", "N", "N", "N"], ["", "", "N", "N", "", "~", ""]]}, {"position": "HCA", "floor": "Level 2", "fte": 0.8, "rotation": 5, "hours": 62.0, "lineType": "D / E", "shiftCombo": "D/E", "weeks": [["", "", "E", "E", "E", "E", "E"], ["", "", "E", "E", "E", "E", "E"], ["", "", "D", "D", "D", "D", "D"], ["", "", "E", "E", "", "~", ""], ["", "", "D", "D", "D", "~", ""]]}, {"position": "HCA", "floor": "Level 2", "fte": 0.8, "rotation": 6, "hours": 62.0, "lineType": "D / E", "shiftCombo": "D/E", "weeks": [["E", "E", "", "", "D", "D", "D"], ["E", "E", "", "", "", "~", ""], ["", "", "D", "D", "D", "~", ""], ["D", "D", "", "", "E", "E", "E"], ["E", "E", "", "", "E", "E", "E"]]}, {"position": "HCA", "floor": "Level 2", "fte": 0.6, "rotation": 7, "hours": 46.5, "lineType": "D / E", "shiftCombo": "D/E", "weeks": [["", "", "", "", "", "D", "D"], ["E", "E", "", "", "", "D", "D"], ["E", "E", "", "", "", "~", ""], ["E", "E", "", "", "", "D", "D"], ["", "E", "E", "E", "", "~", ""]]}, {"position": "HCA", "floor": "Level 2", "fte": 0.6, "rotation": 8, "hours": 46.5, "lineType": "D / E", "shiftCombo": "D/E", "weeks": [["E", "E", "", "", "", "~", ""], ["", "", "D", "D", "", "~", ""], ["E", "E", "", "", "", "D", "D"], ["E", "E", "", "", "", "D", "D"], ["E", "", "", "", "", "D", "D"]]}, {"position": "HCA", "floor": "Level 2", "fte": 0.6, "rotation": 9, "hours": 46.5, "lineType": "D / N", "shiftCombo": "D/N", "weeks": [["", "", "D", "D", "", "", "N"], ["N", "N", "N", "", "", "~", ""], ["D", "D", "", "", "", "", "N"], ["N", "N", "", "", "", "~", ""], ["N", "N", "", "", "", "D", "D"]]}, {"position": "HCA", "floor": "Level 2", "fte": 1.0, "rotation": 10, "hours": 77.5, "lineType": "D / E", "shiftCombo": "D/E", "weeks": [["D", "D", "E", "E", "E", "E", "E"], ["", "", "E", "E", "E", "E", "E"], ["", "", "E", "E", "E", "E", "E"], ["", "", "D", "D", "D", "~", ""], ["D", "D", "D", "D", "D", "~", ""]]}, {"position": "HCA", "floor": "Level 2", "fte": 1.0, "rotation": 11, "hours": 77.5, "lineType": "D / E", "shiftCombo": "D/E", "weeks": [["", "", "D", "D", "D", "~", ""], ["D", "D", "D", "D", "D", "~", ""], ["D", "D", "E", "E", "E", "E", "E"], ["", "", "E", "E", "E", "E", "E"], ["", "", "E", "E", "E", "E", "E"]]}, {"position": "HCA", "floor": "Level 2", "fte": 0.8, "rotation": 12, "hours": 62.0, "lineType": "D / N", "shiftCombo": "D/N", "weeks": [["N", "N", "", "", "N", "N", ""], ["", "", "", "N", "N", "N", "N"], ["", "", "N", "N", "", "~", ""], ["D", "D", "D", "D", "D", "~", ""], ["D", "D", "", "", "N", "N", "N"]]}, {"position": "HCA", "floor": "Level 2", "fte": 0.8, "rotation": 13, "hours": 62.0, "lineType": "D / N", "shiftCombo": "D/N", "weeks": [["D", "D", "N", "N", "", "~", ""], ["D", "D", "", "", "D", "D", "D"], ["N", "N", "", "", "N", "N", ""], ["", "", "N", "N", "N", "N", "N"], ["", "", "N", "N", "", "~", ""]]}, {"position": "HCA", "floor": "Level 2", "fte": 0.8, "rotation": 14, "hours": 62.0, "lineType": "D / E", "shiftCombo": "D/E", "weeks": [["", "", "E", "E", "E", "E", "E"], ["", "", "E", "E", "E", "E", "E"], ["", "", "D", "D", "D", "D", "D"], ["", "", "E", "E", "", "~", ""], ["", "", "D", "D", "D", "~", ""]]}, {"position": "HCA", "floor": "Level 2", "fte": 0.8, "rotation": 15, "hours": 62.0, "lineType": "D / E", "shiftCombo": "D/E", "weeks": [["E", "E", "", "", "D", "D", "D"], ["E", "E", "", "", "", "~", ""], ["", "", "D", "D", "D", "~", ""], ["D", "D", "", "", "E", "E", "E"], ["E", "E", "", "", "E", "E", "E"]]}, {"position": "HCA", "floor": "Level 2", "fte": 0.6, "rotation": 16, "hours": 46.5, "lineType": "D / E", "shiftCombo": "D/E", "weeks": [["", "", "", "", "", "D", "D"], ["E", "E", "", "", "", "D", "D"], ["E", "E", "", "", "", "~", ""], ["E", "E", "", "", "", "D", "D"], ["", "E", "E", "E", "", "~", ""]]}, {"position": "HCA", "floor": "Level 2", "fte": 0.6, "rotation": 17, "hours": 46.5, "lineType": "D / E", "shiftCombo": "D/E", "weeks": [["E", "E", "", "", "", "~", ""], ["", "", "D", "D", "", "~", ""], ["E", "E", "", "", "", "D", "D"], ["E", "E", "", "", "", "D", "D"], ["E", "", "", "", "", "D", "D"]]}, {"position": "HCA", "floor": "Level 2", "fte": 0.6, "rotation": 18, "hours": 46.5, "lineType": "D / N", "shiftCombo": "D/N", "weeks": [["", "", "D", "D", "", "", "N"], ["N", "N", "N", "", "", "~", ""], ["D", "D", "", "", "", "", "N"], ["N", "N", "", "", "", "~", ""], ["N", "N", "", "", "", "D", "D"]]}, {"position": "HCA", "floor": "Level 2", "fte": 1.0, "rotation": 19, "hours": 77.5, "lineType": "D / E", "shiftCombo": "D/E", "weeks": [["D", "D", "E", "E", "E", "E", "E"], ["", "", "E", "E", "E", "E", "E"], ["", "", "E", "E", "E", "E", "E"], ["", "", "D", "D", "D", "~", ""], ["D", "D", "D", "D", "D", "~", ""]]}, {"position": "HCA", "floor": "Level 2", "fte": 1.0, "rotation": 20, "hours": 77.5, "lineType": "D / E", "shiftCombo": "D/E", "weeks": [["", "", "E", "E", "E", "E", "E"], ["", "", "D", "D", "D", "~", ""], ["D", "D", "D", "D", "D", "~", ""], ["D", "D", "D", "E", "E", "E", "E"], ["", "", "E", "E", "E", "E", "E"]]}, {"position": "HCA", "floor": "Level 2", "fte": 1.0, "rotation": 21, "hours": 77.5, "lineType": "D / E", "shiftCombo": "D/E", "weeks": [["D", "D", "D", "D", "D", "~", ""], ["D", "D", "E", "E", "E", "E", "E"], ["", "", "E", "E", "E", "E", "E"], ["", "", "E", "E", "E", "E", "E"], ["", "", "D", "D", "D", "~", ""]]}, {"position": "HCA", "floor": "Level 2", "fte": 1.0, "rotation": 22, "hours": 77.5, "lineType": "D / N", "shiftCombo": "D/N", "weeks": [["N", "N", "N", "N", "", "~", ""], ["D", "D", "D", "D", "D", "~", ""], ["DF", "DF", "DF", "DF", "N", "N", "N"], ["", "", "", "N", "N", "N", "N"], ["N", "N", "", "", "N", "N", "N"]]}, {"position": "HCA", "floor": "Level 2", "fte": 1.0, "rotation": 23, "hours": 77.5, "lineType": "D / N", "shiftCombo": "D/N", "weeks": [["DF", "DF", "DF", "DF", "N", "N", "N"], ["", "", "", "N", "N", "N", "N"], ["N", "N", "", "", "N", "N", "N"], ["N", "N", "N", "N", "", "~", ""], ["DF", "DF", "DF", "DF", "DF", "~", ""]]}, {"position": "HCA", "floor": "Level 2", "fte": 1.0, "rotation": 24, "hours": 77.5, "lineType": "D / N", "shiftCombo": "D/N", "weeks": [["N", "N", "N", "N", "", "~", ""], ["DF", "DF", "DF", "DF", "DF", "~", ""], ["D", "D", "D", "D", "N", "N", "N"], ["", "", "", "N", "N", "N", "N"], ["N", "N", "", "", "N", "N", "N"]]}, {"position": "HCA", "floor": "Level 2", "fte": 0.8, "rotation": 25, "hours": 62.0, "lineType": "D / E", "shiftCombo": "D/E", "weeks": [["", "", "D", "D", "D", "D", "D"], ["", "", "EF", "EF", "", "~", ""], ["E", "E", "", "", "EF", "EF", "EF"], ["EF", "", "", "D", "D", "~", ""], ["E", "E", "", "", "EF", "EF", "EF"]]}, {"position": "HCA", "floor": "Level 2", "fte": 0.8, "rotation": 26, "hours": 62.0, "lineType": "D / E", "shiftCombo": "D/E", "weeks": [["EF", "EF", "EF", "", "", "~", ""], ["E", "E", "", "", "EF", "EF", "EF"], ["", "", "EF", "EF", "", "~", ""], ["D", "D", "", "", "DF", "DF", "DF"], ["E", "E", "E", "", "", "D", "D"]]}, {"position": "HCA", "floor": "Level 2", "fte": 0.8, "rotation": 27, "hours": 62.0, "lineType": "D / E", "shiftCombo": "D/E", "weeks": [["E", "E", "", "", "", "~", ""], ["EF", "EF", "", "", "", "D", "D"], ["E", "E", "", "", "D", "D", "D"], ["E", "E", "E", "", "", "D", "D"], ["EF", "EF", "EF", "EF", "", "~", ""]]}, {"position": "HCA", "floor": "Level 2", "fte": 0.8, "rotation": 28, "hours": 62.0, "lineType": "D / N", "shiftCombo": "D/N", "weeks": [["N", "N", "", "", "N", "N", "N"], ["N", "N", "N", "", "", "~", ""], ["N", "N", "N", "N", "", "~", ""], ["DF", "DF", "", "", "", "D", "D"], ["D", "D", "", "", "", "DF", "DF"]]}, {"position": "HCA", "floor": "Level 2", "fte": 0.8, "rotation": 29, "hours": 62.0, "lineType": "E / N", "shiftCombo": "E/N", "weeks": [["", "", "N", "N", "N", "N", "N"], ["", "", "N", "N", "", "~", ""], ["N", "N", "N", "N", "", "~", ""], ["E", "E", "", "", "EF", "EF", "EF"], ["", "", "", "E", "E", "E", "E"]]}, {"position": "HCA", "floor": "Level 2", "fte": 0.8, "rotation": 30, "hours": 62.0, "lineType": "E / N", "shiftCombo": "E/N", "weeks": [["", "", "", "EF", "EF", "EF", "EF"], ["", "N", "N", "N", "N", "N", "N"], ["", "", "N", "N", "", "~", ""], ["N", "N", "N", "", "", "~", ""], ["", "", "N", "N", "N", "N", "N"]]}, {"position": "HCA", "floor": "Level 2", "fte": 0.6, "rotation": 31, "hours": 46.5, "lineType": "D / N", "shiftCombo": "D/N", "weeks": [["", "", "", "", "", "D", "D"], ["N", "", "", "", "", "DF", "DF"], ["", "", "", "", "DF", "DF", "DF"], ["N", "N", "N", "", "", "~", ""], ["N", "N", "N", "N", "", "~", ""]]}, {"position": "HCA", "floor": "Level 2", "fte": 0.6, "rotation": 32, "hours": 46.5, "lineType": "D / E", "shiftCombo": "D/E", "weeks": [["E", "E", "", "", "", "~", ""], ["E", "E", "", "", "", "D", "D"], ["EF", "EF", "", "", "", "D", "D"], ["", "EF", "EF", "EF", "", "~", ""], ["", "", "", "", "", "D", "D"]]}, {"position": "HCA", "floor": "Level 2", "fte": 0.6, "rotation": 33, "hours": 46.5, "lineType": "D / N", "shiftCombo": "D/N", "weeks": [["", "", "", "", "DF", "DF", "DF"], ["N", "N", "", "", "N", "N", "N"], ["", "", "", "", "", "~", ""], ["", "", "DF", "DF", "N", "N", "N"], ["", "", "N", "N", "", "~", ""]]}];
+const positionEl = document.getElementById('position');
+const floorEl = document.getElementById('floor');
+const fteEl = document.getElementById('fte');
+const shiftEl = document.getElementById('shift');
+const resultsEl = document.getElementById('results');
+const countEl = document.getElementById('count');
+const resetEl = document.getElementById('reset');
+
+const shiftNames = {
+  "D":"Days",
+  "E":"Evenings",
+  "N":"Nights",
+  "D/E":"Days / Evenings",
+  "D/N":"Days / Nights",
+  "E/N":"Evenings / Nights",
+  "D/E/N":"Days / Evenings / Nights",
+  "Other":"Other"
+};
+
+function availableShiftOptions() {
+  const fte = fteEl.value;
+  const pos = positionEl.value;
+  const floor = floorEl.value;
+  const vals = [...new Set(rotations
+    .filter(r => (!pos || r.position===pos) && (!floor || r.floor===floor) && (!fte || String(r.fte)===fte))
+    .map(r => r.shiftCombo))].sort();
+  const current = shiftEl.value;
+  shiftEl.innerHTML = '<option value="">Select shift</option>' + vals.map(v => `<option value="${v}">${shiftNames[v] || v}</option>`).join('');
+  if (vals.includes(current)) shiftEl.value = current;
+}
+
+function classFor(code) {
+  if (!code) return "shift-OFF";
+  if (code==="~") return "shift-tilde";
+  if (code==="^") return "shift-caret";
+  return "shift-" + code.replace(/[^A-Za-z0-9]/g,'');
+}
+function displayCode(code) {
+  return code || "OFF";
+}
+function card(r) {
+  const days = ["Mon","Tue","Wed","Thu","Fri","Sat","Sun"];
+  let rows = r.weeks.map((week, i) => `
+    <tr>
+      <td class="week">Week ${i+1}</td>
+      ${week.map(code => `<td class="${classFor(code)}">${displayCode(code)}</td>`).join('')}
+    </tr>`).join('');
+  return `
+    <article class="card">
+      <div class="cardhead">
+        <div>
+          <h3>Rotation ${r.rotation}</h3>
+          <div class="meta">${r.fte.toFixed(1)} FTE · ${r.hours} biweekly hours · ${shiftNames[r.shiftCombo] || r.shiftCombo}</div>
+        </div>
+        <div class="meta">${r.position} · ${r.floor}</div>
+      </div>
+      <div class="tablewrap">
+        <table>
+          <thead><tr><th>Week</th>${days.map(d=>`<th>${d}</th>`).join('')}</tr></thead>
+          <tbody>${rows}</tbody>
+        </table>
+      </div>
+      <div class="note">5-week repeating cycle. After Week 5, return to Week 1. Source shift codes are preserved.</div>
+    </article>`;
+}
+
+function render() {
+  availableShiftOptions();
+  const pos=positionEl.value, floor=floorEl.value, fte=fteEl.value, shift=shiftEl.value;
+  if (!(pos && floor && fte && shift)) {
+    countEl.textContent = "Choose all 4 filters to view rotations.";
+    resultsEl.innerHTML = '<div class="empty">Select the required options above to view matching rotations.</div>';
+    return;
+  }
+  const matches = rotations.filter(r =>
+    r.position===pos && r.floor===floor && String(r.fte)===fte && r.shiftCombo===shift
+  );
+  countEl.textContent = `${matches.length} matching rotation${matches.length===1?'':'s'}`;
+  resultsEl.innerHTML = matches.length ? matches.map(card).join('') :
+    '<div class="empty">No rotations match those filters. Try another FTE or shift combination.</div>';
+}
+
+[positionEl,floorEl,fteEl].forEach(el => el.addEventListener('change', () => {
+  availableShiftOptions();
+  render();
+}));
+shiftEl.addEventListener('change', render);
+
+resetEl.addEventListener('click', () => {
+  positionEl.value=''; floorEl.value=''; fteEl.value=''; shiftEl.value='';
+  availableShiftOptions(); render();
+});
+
+availableShiftOptions();
+render();
+</script>
+</body>
+</html>
