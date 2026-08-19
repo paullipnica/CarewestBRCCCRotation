@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Bridgeland Rotation Finder</title>
+<title>Bridgeland Line Finder</title>
 <style>
 :root {
   --navy:#17365D;
@@ -226,8 +226,8 @@ th {
 <section class="hero">
   <div class="wrap hero-row">
     <div>
-      <h1>Bridgeland Rotation Finder</h1>
-      <p>Choose your position, floor, FTE and shift combination to view the matching 5-week rotation schedules.</p>
+      <h1>Bridgeland Line Finder</h1>
+      <p>Choose your position, floor, FTE and shift combination to view the matching 5-week line schedules.</p>
     </div>
     <a class="hero-link" href="decision-criteria.html">Decision Criteria</a>
   </div>
@@ -272,7 +272,7 @@ th {
     </div>
 
     <div class="actions">
-      <div id="count" class="count">Choose all 4 filters to view rotations.</div>
+      <div id="count" class="count">Choose all 4 filters to view lines.</div>
       <button id="reset" type="button">Reset filters</button>
     </div>
 
@@ -286,7 +286,7 @@ th {
   </section>
 
   <section id="results" class="results">
-    <div class="empty">Select the required options above to view matching rotations.</div>
+    <div class="empty">Select the required options above to view matching lines.</div>
   </section>
 </main>
 
@@ -390,7 +390,7 @@ function card(r) {
     <article class="card">
       <div class="cardhead">
         <div>
-          <h3>Rotation ${r.rotation} <span class="role-pill">${r.position}</span></h3>
+          <h3>Line ${r.rotation} <span class="role-pill">${r.position}</span></h3>
           <div class="meta">${r.fte.toFixed(1)} FTE · ${r.hours} biweekly hours · ${shiftNames[r.lineType]||r.lineType}</div>
         </div>
         <div class="meta">${r.floor}</div>
@@ -405,7 +405,7 @@ function card(r) {
         </table>
       </div>
 
-      <div class="note">5-week repeating cycle. After Week 5, return to Week 1. Rotation codes are preserved from the approved master schedule.</div>
+      <div class="note">5-week repeating cycle. After Week 5, return to Week 1. Line codes are preserved from the approved master schedule.</div>
     </article>`;
 }
 
@@ -416,8 +416,8 @@ function render() {
   const shift=shiftEl.value;
 
   if(!(pos && floor && fte && shift)) {
-    countEl.textContent='Choose all 4 filters to view rotations.';
-    resultsEl.innerHTML='<div class="empty">Select the required options above to view matching rotations.</div>';
+    countEl.textContent='Choose all 4 filters to view lines.';
+    resultsEl.innerHTML='<div class="empty">Select the required options above to view matching lines.</div>';
     return;
   }
 
