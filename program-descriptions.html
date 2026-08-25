@@ -52,7 +52,7 @@ body {
 .nav-links {
   display:flex;
   gap:8px;
-  flex-wrap:wrap;
+  flex-wrap:nowrap;
   justify-content:flex-end;
 }
 .hero-link {
@@ -186,6 +186,22 @@ li { margin:7px 0; }
   .nav-links { justify-content:flex-start; }
   .floor-grid { grid-template-columns:1fr; }
 }
+
+@media (max-width:620px) {
+  .nav-links {
+    flex-wrap:nowrap;
+    width:100%;
+    gap:8px;
+  }
+  .nav-links .hero-link {
+    flex:1 1 0;
+    text-align:center;
+    white-space:nowrap;
+    padding:9px 10px;
+    font-size:13px;
+  }
+}
+
 </style>
 </head>
 <body>
