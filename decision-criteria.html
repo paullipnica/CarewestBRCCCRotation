@@ -14,42 +14,42 @@
   --muted:#667085;
 }
 * { box-sizing:border-box; }
-
 body {
   margin:0;
   font-family:Inter,Arial,sans-serif;
   background:var(--bg);
   color:#1F2937;
 }
-
 .hero {
   background:linear-gradient(135deg,var(--navy),var(--blue));
   color:white;
   padding:28px 18px 44px;
 }
-
 .wrap {
   width:min(900px,calc(100% - 28px));
   margin:0 auto;
 }
-
 .hero-row {
   display:flex;
   align-items:flex-start;
   justify-content:space-between;
   gap:18px;
 }
-
 .hero h1 {
   margin:0 0 6px;
   font-size:clamp(28px,5vw,44px);
   line-height:1.08;
 }
-
 .hero p {
   margin:0;
   opacity:.92;
   max-width:700px;
+}
+.hero-nav {
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+  justify-content:flex-end;
 }
 
 .back-link {
@@ -63,11 +63,7 @@ body {
   border-radius:10px;
   padding:10px 14px;
 }
-
-.back-link:hover {
-  background:rgba(255,255,255,.22);
-}
-
+.back-link:hover { background:rgba(255,255,255,.22); }
 .panel {
   margin-top:-18px;
   margin-bottom:40px;
@@ -77,13 +73,11 @@ body {
   padding:24px;
   box-shadow:0 10px 30px rgba(23,54,93,.10);
 }
-
 .intro {
   margin:0 0 24px;
   color:#475467;
   line-height:1.65;
 }
-
 .process-card {
   border:1px solid var(--border);
   border-radius:14px;
@@ -91,25 +85,21 @@ body {
   margin-bottom:16px;
   background:var(--card);
 }
-
 .process-card h2 {
   margin:0 0 8px;
   color:var(--navy);
   font-size:20px;
 }
-
 .process-card p {
   margin:0;
   line-height:1.65;
   color:#344054;
 }
-
 .priority {
   margin-top:18px;
   display:grid;
   gap:12px;
 }
-
 .priority-item {
   display:grid;
   grid-template-columns:44px 1fr;
@@ -120,7 +110,6 @@ body {
   border-radius:12px;
   background:#F8FAFC;
 }
-
 .priority-number {
   width:36px;
   height:36px;
@@ -132,19 +121,16 @@ body {
   color:white;
   font-weight:800;
 }
-
 .priority-item strong {
   display:block;
   color:var(--navy);
   margin-bottom:4px;
 }
-
 .priority-item p {
   margin:0;
   color:#475467;
   line-height:1.55;
 }
-
 .note {
   margin-top:22px;
   padding:14px 16px;
@@ -154,99 +140,63 @@ body {
   line-height:1.6;
   border-radius:0 10px 10px 0;
 }
-
 @media (max-width:620px) {
-  .hero-row {
-    flex-direction:column;
-  }
-
-  .panel {
-    padding:18px;
-  }
+  .hero-row { flex-direction:column; }
+  .hero-nav { justify-content:flex-start; }
+  .panel { padding:18px; }
 }
 </style>
 </head>
-
 <body>
-
 <section class="hero">
   <div class="wrap hero-row">
     <div>
       <h1>Decision Criteria</h1>
       <p>Bridgeland Line Selection Process</p>
     </div>
-
-    <a class="back-link" href="index.html">← Line Finder</a>
+    <nav class="hero-nav" aria-label="Site navigation">
+      <a class="back-link" href="index.html">← Line Finder</a>
+      <a class="back-link" href="program-descriptions.html">Program Descriptions</a>
+    </nav>
   </div>
 </section>
 
 <main class="wrap">
   <section class="panel">
-
-    <p class="intro">
-      To ensure the Bridgeland line selection process is fair, transparent and consistently applied,
-      the following process and decision criteria will be used.
-    </p>
+    <p class="intro">To ensure the Bridgeland line selection process is fair, transparent and consistently applied, the following process and decision criteria will be used.</p>
 
     <div class="process-card">
-      <h2>1. Advance Review of Lines</h2>
-      <p>
-        Rouleau Manor staff will be provided with the available Bridgeland lines
-        <strong>one week prior to the selection process</strong>, allowing employees time to review
-        the lines and identify their preferred choices.
-      </p>
+      <h2>1. Advance Review of Rotations</h2>
+      <p>Rouleau Manor staff will be provided with the available Bridgeland lines <strong>one week prior to the selection process</strong>, allowing employees time to review the lines and identify their preferred choices.</p>
     </div>
 
     <div class="process-card">
       <h2>2. On-Site HR Support</h2>
-      <p>
-        Human Resources will be present on-site during the selection process to support the
-        administration of the process.
-      </p>
+      <p>Human Resources will be present on-site during the selection process to <strong>capture and document employee line preferences</strong> and support the administration of the process.</p>
     </div>
 
     <div class="process-card">
       <h2>3. Line Selection Criteria</h2>
-
-      <p>
-        All eligible employees will submit their line preferences. Where more than one employee
-        selects the same line, priority will be determined using the following criteria, in order:
-      </p>
+      <p>All eligible employees will submit their line preferences. Where more than one employee selects the same line, priority will be determined using the following criteria, in order:</p>
 
       <div class="priority">
-
         <div class="priority-item">
           <div class="priority-number">1</div>
-          <div>
-            <strong>Carewest Tenure</strong>
-            <p>
-              The employee with the greater length of service with Carewest will receive priority.
-            </p>
-          </div>
+          <div><strong>Carewest Tenure</strong><p>The employee with the greater length of service with Carewest will receive priority.</p></div>
         </div>
-
         <div class="priority-item">
           <div class="priority-number">2</div>
-          <div>
-            <strong>Alphabetical Order</strong>
-            <p>
-              If Carewest tenure is the same, priority will be determined by last name
-              in ascending alphabetical order (A–Z).
-            </p>
-          </div>
+          <div><strong>Rouleau Manor Tenure</strong><p>If Carewest tenure is the same, the employee with the greater length of service at Rouleau Manor will receive priority.</p></div>
         </div>
-
+        <div class="priority-item">
+          <div class="priority-number">3</div>
+          <div><strong>Alphabetical Order</strong><p>If both Carewest tenure and Rouleau Manor tenure are the same, priority will be determined by last name in ascending alphabetical order (A–Z).</p></div>
+        </div>
       </div>
     </div>
 
-    <div class="note">
-      <strong>How it works:</strong>
-      Employees submit their preferred line. The decision criteria are only used when
-      two or more employees select the same line.
-    </div>
-
+    <div class="note"><strong>How it works:</strong> Employees submit their preferred line. The tenure and alphabetical criteria are only used when two or more employees select the same line.</div>
   </section>
 </main>
-
 </body>
 </html>
