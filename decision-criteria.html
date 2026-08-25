@@ -48,7 +48,7 @@ body {
 .hero-nav {
   display:flex;
   gap:10px;
-  flex-wrap:wrap;
+  flex-wrap:nowrap;
   justify-content:flex-end;
 }
 
@@ -145,6 +145,22 @@ body {
   .hero-nav { justify-content:flex-start; }
   .panel { padding:18px; }
 }
+
+@media (max-width:620px) {
+  .hero-nav {
+    flex-wrap:nowrap;
+    width:100%;
+    gap:8px;
+  }
+  .hero-nav .back-link {
+    flex:1 1 0;
+    text-align:center;
+    white-space:nowrap;
+    padding:9px 10px;
+    font-size:13px;
+  }
+}
+
 </style>
 </head>
 <body>
@@ -155,7 +171,7 @@ body {
       <p>Bridgeland Line Selection Process</p>
     </div>
     <nav class="hero-nav" aria-label="Site navigation">
-      <a class="back-link" href="index.html">← Line Finder</a>
+      <a class="back-link" href="index.html">Line Finder</a>
       <a class="back-link" href="program-descriptions.html">Program Descriptions</a>
     </nav>
   </div>
@@ -166,7 +182,7 @@ body {
     <p class="intro">To ensure the Bridgeland line selection process is fair, transparent and consistently applied, the following process and decision criteria will be used.</p>
 
     <div class="process-card">
-      <h2>1. Advance Review of Rotations</h2>
+      <h2>1. Advance Review of Lines</h2>
       <p>Rouleau Manor staff will be provided with the available Bridgeland lines <strong>one week prior to the selection process</strong>, allowing employees time to review the lines and identify their preferred choices.</p>
     </div>
 
@@ -186,16 +202,12 @@ body {
         </div>
         <div class="priority-item">
           <div class="priority-number">2</div>
-          <div><strong>Rouleau Manor Tenure</strong><p>If Carewest tenure is the same, the employee with the greater length of service at Rouleau Manor will receive priority.</p></div>
-        </div>
-        <div class="priority-item">
-          <div class="priority-number">3</div>
-          <div><strong>Alphabetical Order</strong><p>If both Carewest tenure and Rouleau Manor tenure are the same, priority will be determined by last name in ascending alphabetical order (A–Z).</p></div>
+          <div><strong>Alphabetical Order</strong><p>If Carewest tenure is the same, priority will be determined by last name in ascending alphabetical order (A–Z).</p></div>
         </div>
       </div>
     </div>
 
-    <div class="note"><strong>How it works:</strong> Employees submit their preferred line. The tenure and alphabetical criteria are only used when two or more employees select the same line.</div>
+    <div class="note"><strong>How it works:</strong> Employees submit their preferred line. Carewest tenure and alphabetical order are only used when two or more employees select the same line.</div>
   </section>
 </main>
 </body>

@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>BRCC Program Overview by Floor</title>
+<style>
+:root {
+  --navy:#17365D;
+  --blue:#2F5597;
+  --bg:#F5F7FA;
+  --card:#FFFFFF;
+  --border:#D8DEE6;
+  --muted:#667085;
+  --soft-blue:#EAF1F8;
+  --soft-green:#EEF6EE;
+  --soft-gold:#FFF5E8;
+}
+* { box-sizing:border-box; }
+body {
+  margin:0;
+  font-family:Inter,Arial,sans-serif;
+  background:var(--bg);
+  color:#1F2937;
+  line-height:1.58;
+}
+.hero {
+  background:linear-gradient(135deg,var(--navy),var(--blue));
+  color:white;
+  padding:28px 18px 34px;
+}
+.wrap {
+  width:min(1000px,calc(100% - 28px));
+  margin:0 auto;
+}
+.hero-row {
+  display:flex;
+  align-items:flex-start;
+  justify-content:space-between;
+  gap:18px;
+}
+.hero h1 {
+  margin:0 0 8px;
+  font-size:clamp(28px,5vw,44px);
+  line-height:1.08;
+}
+.hero p {
+  margin:0;
+  opacity:.94;
+  max-width:760px;
+}
+.nav-links {
+  display:flex;
+  gap:8px;
+  flex-wrap:nowrap;
+  justify-content:flex-end;
+}
+.hero-link {
+  display:inline-block;
+  flex:0 0 auto;
+  color:white;
+  text-decoration:none;
+  font-weight:800;
+  border:1px solid rgba(255,255,255,.38);
+  background:rgba(255,255,255,.12);
+  border-radius:10px;
+  padding:10px 14px;
+  transition:background .2s ease;
+  white-space:nowrap;
+}
+.hero-link:hover { background:rgba(255,255,255,.22); }
+main { padding:26px 0 48px; }
+.intro {
+  background:white;
+  border:1px solid var(--border);
+  border-radius:18px;
+  padding:22px;
+  box-shadow:0 8px 24px rgba(23,54,93,.08);
+  margin-bottom:20px;
+}
+.intro h2 {
+  margin:0 0 8px;
+  color:var(--navy);
+  font-size:24px;
+}
+.section-card {
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:18px;
+  overflow:hidden;
+  margin-bottom:20px;
+  box-shadow:0 4px 14px rgba(0,0,0,.04);
+}
+.section-head {
+  background:var(--blue);
+  color:white;
+  padding:16px 18px;
+}
+.section-head h2 {
+  margin:0;
+  font-size:23px;
+  line-height:1.25;
+}
+.section-head .sub {
+  margin-top:4px;
+  font-size:14px;
+  opacity:.95;
+  font-weight:700;
+}
+.section-body { padding:18px; }
+.badges {
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+  margin-bottom:14px;
+}
+.badge {
+  display:inline-flex;
+  align-items:center;
+  border-radius:999px;
+  padding:6px 10px;
+  font-size:12px;
+  font-weight:800;
+  background:var(--soft-blue);
+  color:var(--navy);
+  border:1px solid #CFDCEB;
+}
+.program-block {
+  border:1px solid var(--border);
+  border-radius:14px;
+  padding:16px;
+  margin-top:14px;
+  background:#FBFCFE;
+}
+.program-block h3 {
+  margin:0 0 8px;
+  color:var(--navy);
+  font-size:19px;
+}
+.callout {
+  margin-top:14px;
+  padding:13px 14px;
+  border-left:4px solid var(--blue);
+  background:var(--soft-blue);
+  border-radius:8px;
+  font-weight:700;
+}
+.callout.green {
+  background:var(--soft-green);
+  border-left-color:#4E7A50;
+}
+.callout.gold {
+  background:var(--soft-gold);
+  border-left-color:#B7791F;
+}
+ul {
+  margin:10px 0 0 20px;
+  padding:0;
+}
+li { margin:7px 0; }
+.floor-grid {
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:14px;
+  margin-top:14px;
+}
+.floor-box {
+  border:1px solid var(--border);
+  border-radius:14px;
+  padding:15px;
+  background:#FBFCFE;
+}
+.floor-box h3 {
+  margin:0 0 6px;
+  color:var(--navy);
+  font-size:18px;
+}
+.footer-note {
+  margin-top:6px;
+  color:var(--muted);
+  font-size:12px;
+  text-align:center;
+}
+@media (max-width:720px) {
+  .hero-row { flex-direction:column; }
+  .nav-links { justify-content:flex-start; }
+  .floor-grid { grid-template-columns:1fr; }
+}
+
+@media (max-width:620px) {
+  .nav-links {
+    flex-wrap:nowrap;
+    width:100%;
+    gap:8px;
+  }
+  .nav-links .hero-link {
+    flex:1 1 0;
+    text-align:center;
+    white-space:nowrap;
+    padding:9px 10px;
+    font-size:13px;
+  }
+}
+
+</style>
+</head>
+<body>
+<section class="hero">
+  <div class="wrap hero-row">
+    <div>
+      <h1>BRCC Program Overview by Floor</h1>
+      <p>Bridgeland Riverside Continuing Care Centre</p>
+    </div>
+    <nav class="nav-links" aria-label="Site navigation">
+      <a class="hero-link" href="index.html">Line Finder</a>
+      <a class="hero-link" href="decision-criteria.html">Decision Criteria</a>
+    </nav>
+  </div>
+</section>
+
+<main class="wrap">
+  <section class="intro">
+    <h2>Program Overview</h2>
+    <p>Bridgeland Riverside Continuing Care Centre (BRCC) will provide a continuum of specialized mental health, behavioural support, restorative, and continuing care services across four levels. The design allows residents to receive the right level of support based on their needs, while creating opportunities for stabilization, rehabilitation, independence, and, where appropriate, transition to more independence-focused environments.</p>
+  </section>
+
+  <section class="section-card">
+    <div class="section-head">
+      <h2>2nd Floor (Secure) – Complex Mental Health</h2>
+      <div class="sub">45 beds</div>
+    </div>
+    <div class="section-body">
+      <div class="badges">
+        <span class="badge">Secure Environment</span>
+        <span class="badge">Complex Mental Health</span>
+        <span class="badge">45 Beds</span>
+      </div>
+      <p>The 2nd Floor is dedicated to the <strong>Complex Mental Health (CMH) Program</strong>, a secure continuing care environment for adults with complex mental health, addiction, cognitive, behavioural, and neurological conditions that cannot be effectively supported in traditional continuing care settings.</p>
+      <p>Working from a person-centred and harm reduction philosophy, the program focuses on building stability, supporting meaningful daily living, promoting independence, and enhancing quality of life. Residents benefit from specialized mental health support, interdisciplinary care, recreation programming, physician and psychiatric involvement, and 24/7 security.</p>
+      <div class="callout">Residents who currently live at Rouleau will transfer to this floor if they require a secure environment.</div>
+    </div>
+  </section>
+
+  <section class="section-card">
+    <div class="section-head">
+      <h2>3rd Floor (Secure) – Enhanced Behavioural Support & Mental Health Restorative Care</h2>
+      <div class="sub">45 secured beds · New programming</div>
+    </div>
+    <div class="section-body">
+      <div class="badges">
+        <span class="badge">Secure Environment</span>
+        <span class="badge">45 Beds</span>
+        <span class="badge">New Programming</span>
+      </div>
+      <p><strong>Important features of Level 3 include:</strong></p>
+      <ul>
+        <li>Significantly higher staffing ratios compared to CMH, including floor staff and allied health.</li>
+        <li>More dedicated leadership supports on days and evenings.</li>
+        <li>Improved environmental features designed to reduce harm.</li>
+      </ul>
+
+      <div class="program-block">
+        <h3>30 Beds – Enhanced Behavioural Support Unit (EBSU)</h3>
+        <div class="badges">
+          <span class="badge">Long-Term Care</span>
+          <span class="badge">30 Beds</span>
+        </div>
+        <p>The Enhanced Behavioural Support Unit provides highly specialized care for individuals whose behavioural, cognitive, developmental, or neurodiverse needs exceed the supports available in other continuing care settings.</p>
+        <p>Residents may require frequent 1:1 interventions and may present with persistent and repetitive behaviours. They may require intensive behavioural interventions, enhanced supervision, structured therapeutic approaches, and specialized clinical support. Staff work closely with interdisciplinary teams to promote safety, reduce distress, and improve quality of life.</p>
+      </div>
+
+      <div class="program-block">
+        <h3>15 Beds – Mental Health Restorative Unit</h3>
+        <div class="badges">
+          <span class="badge">Short Stay</span>
+          <span class="badge">Post-Acute Care</span>
+          <span class="badge">15 Beds</span>
+        </div>
+        <p>The Mental Health Restorative Unit is a short-stay stabilization and rehabilitation program for individuals transitioning from acute care or other settings who require further mental health assessment, treatment, psychiatric support, and skill development before moving to a longer-term community placement.</p>
+        <p>The focus is on recovery, rehabilitation, behavioural stabilization, and preparing residents for their next stage of care. Clients may transition to one of the floors at BRCC following stabilization.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-card">
+    <div class="section-head">
+      <h2>4th & 5th Floors (Non-Secure) – Complex Mental Health</h2>
+      <div class="sub">54 beds + 54 beds</div>
+    </div>
+    <div class="section-body">
+      <div class="badges">
+        <span class="badge">Non-Secure Environment</span>
+        <span class="badge">Complex Mental Health</span>
+        <span class="badge">108 Beds Total</span>
+      </div>
+      <p>The 4th and 5th floors are non-secure Complex Mental Health neighbourhoods serving residents whose needs are best supported in an open environment. Residents may be living with mental illness, addictions, cognitive impairment, acquired brain injury, or behavioural challenges, while benefiting from a greater degree of independence and community integration.</p>
+      <p>The floors support residents who are stable enough for a non-secure setting while still requiring specialized mental health services and interdisciplinary care.</p>
+
+      <div class="floor-grid">
+        <div class="floor-box">
+          <h3>4th Floor</h3>
+          <p><strong>Complex Mental Health</strong></p>
+          <p>Non-secure continuing care environment supporting residents who benefit from greater independence while continuing to require specialized mental health and interdisciplinary care.</p>
+        </div>
+        <div class="floor-box">
+          <h3>5th Floor</h3>
+          <p><strong>Complex Mental Health, Rehabilitation & Transitional Living</strong></p>
+          <p>Non-secure environment with an added focus on rehabilitation and transitional living.</p>
+        </div>
+      </div>
+
+      <div class="callout green">Residents who currently live at Rouleau will transfer to the 5th Floor if they require an unsecure environment.</div>
+    </div>
+  </section>
+
+  <div class="footer-note">Bridgeland Riverside Continuing Care Centre · Program Overview by Floor</div>
+</main>
+</body>
+</html>
